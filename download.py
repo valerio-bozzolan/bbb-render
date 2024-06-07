@@ -73,7 +73,10 @@ class Downloader:
                       'captions.json',
                       'slides_new.xml',
                       'video/webcams.webm',
-                      'deskshare/deskshare.webm']
+                      'video/webcams.mp4',
+                      'deskshare/deskshare.webm',
+                      'deskshare/deskshare.mp4',
+       ]
         
         for item in components:
             try:

@@ -22,6 +22,7 @@ ET.register_namespace("", "http://www.w3.org/2000/svg")
 SlideInfo = collections.namedtuple('SlideInfo', ['id', 'width', 'height', 'start', 'end'])
 CursorEvent = collections.namedtuple('CursorEvent', ['x', 'y', 'start'])
 
+VideoFormats = ["webm", "mp4"]
 
 def file_to_uri(path):
     path = os.path.realpath(path)
@@ -112,10 +113,34 @@ class Presentation:
             element.set_child_property("height", height)
         return clip
 
+    def _get_webcam_asset(self):
+        asset = None
+        for video_format in VideoFormats:
+            file = 'video/webcams.' + video_format
+            file = os.path.join(self.opts.basedir, file)
+            if os.path.getsize(file) > 0:
+                if os.stat(file).st_size > 0:
+                    asset = self._get_asset(file)
+        if asset == None:
+            raise Exception('Cannot find webcam file')
+        return asset
+
+    def _get_deskshare_asset(self):
+        asset = None
+        for video_format in VideoFormats:
+            file = 'deskshare/deskshare.' + video_format
+            file = os.path.join(self.opts.basedir, file)
+            if os.path.getsize(file) > 0:
+                if os.stat(file).st_size > 0:
+                    asset = self._get_asset(file)
+        if asset == None:
+            raise Exception('Cannot find deskshare file')
+        return asset
+
     def set_track_caps(self):
         # Set frame rate and audio rate based on webcam capture
-        asset = self._get_asset(
-            os.path.join(self.opts.basedir, 'video/webcams.webm'))
+
+        asset = self._get_webcam_asset()
         info = asset.get_info()
 
         video_info = info.get_video_streams()[0]
@@ -162,8 +187,8 @@ class Presentation:
 
     def add_webcams(self):
         layer = self._add_layer('Camera')
-        asset = self._get_asset(
-            os.path.join(self.opts.basedir, 'video/webcams.webm'))
+
+        asset = self._get_webcam_asset()
         dims = self._get_dimensions(asset)
         if self.opts.stretch_webcam or self.opts.crop_webcam:
             dims = (dims[0] * 16/12, dims[1])
@@ -313,8 +338,7 @@ class Presentation:
             return
 
         layer = self._add_layer('Deskshare')
-        asset = self._get_asset(
-            os.path.join(self.opts.basedir, 'deskshare/deskshare.webm'))
+        asset = self._get_deskshare_asset()
         width, height = self._constrain(self._get_dimensions(asset),
                                         (self.slides_width, self.opts.height))
         duration = asset.props.duration

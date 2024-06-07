@@ -1,7 +1,7 @@
 # BigBlueButton Presentation Renderer
 
 The BigBlueButton web conferencing system provides the ability to
-record meetings.  Rather than producing a single video file though, it
+record meetings. Rather than producing a single video file though, it
 produces multiple assets (webcam footage, screenshare footage, slides,
 scribbles, chat, etc) and relies on a web player to assemble them.
 
@@ -12,7 +12,7 @@ for archive or upload to other video hosting sites.
 ## Prerequisites
 
 The scripts are written in Python, and rely on the GStreamer Editing
-Services libraries.  On an Ubuntu 20.04 system, you will need to
+Services libraries. On an Ubuntu 20.04 system, you will need to
 install at least the following:
 
 ```
@@ -20,7 +20,7 @@ sudo apt install python3-gi gir1.2-ges-1.0 ges1.0-tools python3-intervaltree
 ```
 
 You may also want to install the [Pitivi video
-editor](http://www.pitivi.org/) to tweak the result before rendering:
+editor](https://www.pitivi.org/) to tweak the result before rendering:
 
 ```
 sudo apt install pitivi
@@ -28,16 +28,15 @@ sudo apt install pitivi
 
 ## Downloading a presentation
 
-The first script will download the presentation assets locally:
+First, download the presentation assets locally. The `download.py` script accepts 2 parameters:
 
 ```
-./download.py presentation_url outdir
+./download.py PRESENTATION_URL OUTDIR
 ```
 
-The `presentation_url` should be a full URL containing the string
-`/playback/presentation/2.0/playback.html?meetingId=`.  This will
+The `PRESENTATION_URL` should be a full URL containing the string
+`/playback/presentation/2.0/playback.html?meetingId=`. This will
 download the presentation metadata, video footage and slides.
-
 
 ## Create a GES project
 
@@ -45,7 +44,7 @@ The second script combines the downloaded assets into a GStreamer
 Editing Services project.
 
 ```
-./make-xges.py outdir presentation.xges
+./make-xges.py OUTDIR PRESENTATION.xges
 ```
 
 It takes the following optional parameters to influence the project:
@@ -75,9 +74,16 @@ recording:
 * [x] Mouse cursor
 * [x] Whiteboard scribbles (excluding text)
 
-It does not cover:
+It covers the following video formats:
+
+* [x] webm
+* [x] mp4
+
+It does not actually cover:
 
 * [ ] Text chat
+
+## Render Preview
 
 The project can be previewed using the `ges-launch-1.0` command line tool:
 
@@ -106,7 +112,9 @@ ges-launch-1.0 --load presentation.xges -o presentation.webm \
 
 ## License
 
-Copyright (c) 2020-2021 [James Henstridge](https://github.com/jhenstridge) and contributors
+Copyright (c) 2020-2022 [James Henstridge](https://github.com/jhenstridge) and contributors
+
+Copyright (c) 2021-2024 [Valerio Bozzolan](https://boz.reyboz.it/), contributors
 
 The project is Free as in freedom software, released under the terms of the MIT License.
 

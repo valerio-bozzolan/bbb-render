@@ -9,6 +9,26 @@ This project provides some scripts to download the assets for a
 recorded presentation, and assemble them into a single video suitable
 for archive or upload to other video hosting sites.
 
+## Features
+
+Currently the project includes all the following aspects of the BBB
+recording:
+
+* [x] Slides
+* [x] Screensharing video
+* [x] Webcam video+audio
+* [x] Mouse cursor
+* [x] Whiteboard scribbles (excluding text)
+
+It covers all the following input video formats:
+
+* [x] webm
+* [x] mp4
+
+It does not actually cover:
+
+* [ ] Text chat
+
 ## Prerequisites
 
 The scripts are written in Python, and rely on the GStreamer Editing
@@ -64,24 +84,6 @@ Some accepted `TIME` formats:
 * `mm:ss` minutes and seconds
 * `hh:mm:ss` hours minutes and seconds
 * `dd:hh:mm:ss` days, hours, minutes and seconds
-
-Currently the project includes the following aspects of the BBB
-recording:
-
-* [x] Slides
-* [x] Screensharing video
-* [x] Webcam video+audio
-* [x] Mouse cursor
-* [x] Whiteboard scribbles (excluding text)
-
-It covers the following video formats:
-
-* [x] webm
-* [x] mp4
-
-It does not actually cover:
-
-* [ ] Text chat
 
 ## Render Preview
 

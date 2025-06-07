@@ -29,6 +29,14 @@ It does not actually cover:
 
 * [ ] Text chat
 
+Additional features:
+
+* [X] Download in automatic smart directories like `downloads/YYYY-MM-DD-HHIISS-your-original-video-title`
+
+Missing features / Known bugs:
+
+* https://github.com/valerio-bozzolan/bbb-render/issues
+
 ## Prerequisites
 
 The scripts are written in Python, and rely on the GStreamer Editing
@@ -51,12 +59,16 @@ sudo apt install pitivi
 First, download the presentation assets locally. The `download.py` script accepts 2 parameters:
 
 ```
-./download.py PRESENTATION_URL OUTDIR
+./download.py PRESENTATION_URL [OUTDIR]
 ```
 
 The `PRESENTATION_URL` should be a full URL containing the string
-`/playback/presentation/2.0/playback.html?meetingId=`. This will
-download the presentation metadata, video footage and slides.
+`/playback/presentation/2.0/playback.html?meetingId=` or `/playback/presentation/2.3/meeting-idasdlol/`.
+This will download the presentation metadata, video footage and slides.
+
+The `OUTDIR` is optional. When you don't provide this, it's automatically generated,
+in the form of `YYYY-MM-DD-HHIISS-the-video-title`, using the known creation date
+and the known video title, extracted from the metadata.
 
 ## Create a GES project
 
@@ -116,7 +128,7 @@ ges-launch-1.0 --load presentation.xges -o presentation.webm \
 
 Copyright (c) 2020-2022 [James Henstridge](https://github.com/jhenstridge) and contributors
 
-Copyright (c) 2021-2024 [Valerio Bozzolan](https://boz.reyboz.it/), contributors
+Copyright (c) 2021-2025 [Valerio Bozzolan](https://boz.reyboz.it/), contributors
 
 The project is Free as in freedom software, released under the terms of the MIT License.
 
